@@ -1,0 +1,26 @@
+syntax  = "proto2";
+
+option go_package = "./user";
+
+message User {
+    required string name = 1;
+    required int32 age = 2;
+    required int32 sex = 3;
+    optional Address address = 4;
+    repeated Company company = 5;
+}
+
+message Address {
+    required string province = 1;
+    required string city = 2;
+    optional string area = 3;
+    optional string address = 4;
+}
+
+message Company {
+    required string name = 1;
+    required Address address = 2;
+    required string group = 3;
+    required string position = 4;
+}
+
