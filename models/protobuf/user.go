@@ -2,7 +2,7 @@ package user
 
 import (
 	"encoding/json"
-	"godemo/conf/proto/user"
+	userProto "godemo/models/protobuf_package/user"
 	"github.com/golang/protobuf/proto"
 )
 
@@ -23,23 +23,23 @@ func GenerateUser2Protobuf() (string, error) {
 	baiduCompanyAddressCity := "北京市"
 	baiduCompanyAddressArea := "朝阳区"
 	baiduCompanyAddressAddress := "北京市朝阳区将台"
-	companys := []*user.Company{
-		&user.Company{
+	companys := []*userProto.Company{
+		&userProto.Company{
 			Name: &qihuCompanyName,
 			Group: &qihuCompanyGroup,
 			Position: &qihuCompanyPosition,
-			Address: &user.Address{
+			Address: &userProto.Address{
 				Province: &qihuCompanyAddressProvince,
 				City: &qihuCompanyAddressCity,
 				Area: &qihuCompanyAddressArea,
 				Address: &qihuCompanyAddressAddress,
 			},
 		},
-		&user.Company{
+		&userProto.Company{
 			Name: &baiduCompanyName,
 			Group: &baiduCompanyGroup,
 			Position: &baiduCompanyPosition,
-			Address: &user.Address{
+			Address: &userProto.Address{
 				Province: &baiduCompanyAddressProvince,
 				City: &baiduCompanyAddressCity,
 				Area: &baiduCompanyAddressArea,
@@ -55,11 +55,11 @@ func GenerateUser2Protobuf() (string, error) {
 	city := "北京市"
 	area := "西城区"
 	address := "北京市西城区广安门外街道"
-	zhanglei := &user.User{
+	zhanglei := &userProto.User{
 		Name: &userName,
 		Sex: &userSex,
 		Age: &userAge,
-		Address: &user.Address{
+		Address: &userProto.Address{
 			Province: &province,
 			City: &city,
 			Area: &area,
@@ -74,14 +74,14 @@ func GenerateUser2Protobuf() (string, error) {
 }
 
 // 将proto解析成结构体
-func ParseProtobuf2User(data string) (*user.User, error) {
-	zhanglei := &user.User{}
+func ParseProtobuf2User(data string) (*userProto.User, error) {
+	zhanglei := &userProto.User{}
 	err := proto.Unmarshal([]byte(data), zhanglei)
 	return zhanglei, err
 }
 
 // 将结构体转化成json
-func ParseUser2Json(user *user.User) (string, error) {
+func ParseUser2Json(user *userProto.User) (string, error) {
 	data, err := json.Marshal(user)
 	return string(data), err
 }

@@ -1,0 +1,19 @@
+syntax  = "proto2";
+
+// 通过protoc和protoc的go插件生成go代码的包名称
+option go_package = "godemo/models/protobuf_package/employee;employeeProto";
+
+import "user.proto";
+
+// getEmployeeInfo方法中rpc返回的proto
+message EmployeeResponse {
+    required int64 id = 1;
+    required string username = 2;
+    required Company company = 3;
+    optional string language = 4;
+}
+
+// getEmployeeInfo方法中rpc请求的proto
+message EmployeeRequest {
+    required int64 id = 1;
+}

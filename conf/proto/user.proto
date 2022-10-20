@@ -1,6 +1,7 @@
 syntax  = "proto2";
 
-option go_package = "./user";
+// 通过protoc和protoc的go插件生成go代码的包名称
+option go_package = "godemo/models/protobuf_package/user;userProto";
 
 message User {
     required string name = 1;

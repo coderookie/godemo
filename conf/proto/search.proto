@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+option go_package = "godemo/models/protobuf_package/search;searchProto";
+
+message searchRequest {
+    required string query = 1; // 搜索的query
+}
+
+message searchResponse {
+    required int32 code = 1; // 状态码
+    required string message = 2; // 返回信息
+    repeated searchResponseData data = 3; // 返回数据
+}
+
+message searchResponseData {
+    required int64 id = 1; // 文档id
+    optional string title = 2; // 标题
+    optional string content = 3; // 内容
+}
