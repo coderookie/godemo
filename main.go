@@ -4,10 +4,36 @@ import (
 	"godemo/models/protobuf"
 	"fmt"
 	"os"
+	"runtime/pprof"
 	"time"
+	_ "net/http/pprof"
+	"flag"
 )
 
 func main() {
+	// pprof性能监控, go run main.go --cpu_pprof_file=cpu.pprof, go tool pprof cpu.pprof
+	var cpuPprofFile = flag.String("cpu_pprof_file", "", "write cpu info to file")
+	var memPprofFile = flag.String("mem_pprof_file", "", "write mem info to file")
+	flag.Parse()
+	if *cpuPprofFile != ""{
+		fp, err := os.Create(*cpuPprofFile)
+		if err != nil {
+			fmt.Printf("section[writeCpuToFile] func[os.Create] err[%s]\n", err.Error())
+			os.Exit(1)
+		}
+		pprof.StartCPUProfile(fp)
+		defer pprof.StopCPUProfile()
+	}
+	if *memPprofFile != "" {
+		fp, err := os.Create(*memPprofFile)
+		if err != nil {
+			fmt.Printf("section[writeMemToFile] func[os.Create] err[%s]\n", err.Error())
+			os.Exit(1)
+		}
+		pprof.WriteHeapProfile(fp)
+		defer fp.Close()
+	}
+
 	// protobuf test start
 	now1 := time.Now()
 	data, err := user.GenerateUser2Protobuf()
