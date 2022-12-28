@@ -25,7 +25,7 @@ var rateLimiter *rate.Limiter
 
 // 记录日志
 func logger(ratelimit int, message string) {
-	dat := time.Now().Format("2006-01-02 15:04:05")
+	dat := time.Now().Format("2006-01-02 15:04:05.000")
 	fmt.Printf("date[%s] ratelimit[%d] message[%s]\n", dat, ratelimit, message)
 }
 
