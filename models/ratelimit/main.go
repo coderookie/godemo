@@ -87,13 +87,13 @@ func CounterHandler(w http.ResponseWriter, r *http.Request) {
 func BucketTokenHandler(w http.ResponseWriter, r *http.Request) {
 	if rateLimiter.Allow() {
 		// 桶里还有数, 放行. 则从桶里获取一个令牌
-		resp := fmt.Sprintf("allow, size: %d", rateLimiter.Burst())
+		resp := fmt.Sprintf("allow, size: %v", rateLimiter.Tokens())
 		logger(1, resp)
 		w.Write([]byte(resp))
 		return
 	} else {
 		// 桶里没有数, 不放行. 等待以后每秒自从往桶里放令牌
-		resp := fmt.Sprintf("deny, size: %d", rateLimiter.Burst())
+		resp := fmt.Sprintf("deny, size: %v", rateLimiter.Tokens())
 		logger(0, resp)
 		w.Write([]byte(resp))
 		return
